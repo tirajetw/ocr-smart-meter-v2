@@ -17,7 +17,8 @@ pts = np.array([[0,0],[0,0],[0,0],[0,0]])
 data = [0,0,0,0,0,0,0,0]
 dec = 0
 varlist = []
- 
+TimeDelay = 15
+
 def hex2serial(data):
     #port = serial.Serial('/dev/ttyS0',9600)
     hexdata = hex(data)
@@ -37,14 +38,15 @@ def readImg(imgDir,pts):
     #cv2.imshow("img", warped1)
     #cv2.waitKey(0)
     cv2.imwrite('imgTemp.png',warped1)
-    #opencvTHTest.threshold_img('imgTemp.png')
+    opencv_threashhold.threshold_img('imgTemp.png')
     #print(ocr.text_from_image_file("imgTemp.png", "eng"))
-    data[dec] = int(ocr.text_from_image_file("imgTemp.png", "eng"))
+    data[dec] = int(ocr.text_from_image_file("th.png", "eng"))
     msg = pos[0] + ' = ' + str(data[dec])
     print(msg)
     #os.remove('imgTemp.png')
     
 while True:
+    os.system('raspistill -o img.jpg')
     f = open('config.txt', "r")
     f.readline().split()
     while True:
@@ -63,8 +65,9 @@ while True:
                 #print(varlist)
                 #print(pts)
                 dec += 1
-                readImg('test.jpg',pts)
+                readImg('img.jpg',pts)
                 os.remove('th.png')
+                os.remove('imgTemp.png')
 
         except:
             print('We cant read variable from image. We will try again.')
@@ -74,6 +77,6 @@ while True:
     dec = 0
     data = [0,0,0,0,0,0,0,0]
     f.close()
-    for x in range(5):
-        print ("wait for %d seconds for read again" % (5-x))
+    for x in range(TimeDelay):
+        print ("wait for %d seconds for read again" % (TimeDelay-x))
         time.sleep(1)
