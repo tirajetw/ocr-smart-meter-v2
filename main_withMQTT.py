@@ -28,6 +28,7 @@ def readImg(imgDir,pts):
 
 
 while True:
+    os.system('raspistill -o img2.jpg')
     f = open('config2.txt', "r")
     pts = np.array([[0,0],[0,0],[0,0],[0,0]])
     f.readline().split()
@@ -45,7 +46,7 @@ while True:
                 pts[3] = np.fromstring(pos[4],dtype=int,sep=',')
                 #print(varlist)
                 #print(pts)
-                readImg('test2.jpg',pts)
+                readImg('img2.jpg',pts)
                
     except:
         print("We cant read variable from image. We will try again.")
