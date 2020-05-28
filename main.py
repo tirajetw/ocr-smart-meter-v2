@@ -8,7 +8,7 @@ import opencv_threashhold
 import os
 import time
 #import serial   
-#import mqtt
+import mqtt
 
 cnt = 0
 msg = ''
@@ -24,6 +24,7 @@ def hex2serial(data):
     hexdata = hex(data)
     print(hexdata) #type : str
     #port.write((hexdata.encode()))
+    return hexdata
 
 def convert(list): 
     # Converting integer list to string list 
@@ -65,7 +66,7 @@ while True:
                 #print(varlist)
                 #print(pts)
                 dec += 1
-                readImg('img.jpg',pts)
+                readImg('test.jpg',pts)
                 os.remove('th.png')
                 os.remove('imgTemp.png')
 
@@ -73,7 +74,7 @@ while True:
             print('We cant read variable from image. We will try again.')
     print(data)
     print(convert(data))
-    hex2serial(convert(data))
+    mqtt.pubMQTT(hex2serial(convert(data)))
     dec = 0
     data = [0,0,0,0,0,0,0,0]
     f.close()

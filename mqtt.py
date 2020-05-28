@@ -24,7 +24,7 @@ topic = "test04/a"
 client = mqttClient.Client("Python")               #create new instance
 client.username_pw_set(user, password=password)    #set username and password
 client.on_connect= on_connect                      #attach function to callback
- 
+
 client.connect(broker_address, port=port)          #connect to broker
  
 client.loop_start()        #start the loop

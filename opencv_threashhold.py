@@ -20,5 +20,5 @@ def threshold_img(img):
         plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
         plt.title(titles[i])
         plt.xticks([]),plt.yticks([])
-    plt.show()
+    # plt.show()
     cv2.imwrite('th.png',img)
